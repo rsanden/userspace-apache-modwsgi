@@ -49,8 +49,9 @@ PidFile PLACEHOLDER_PREFIX/var/run/httpd.pid
 TypesConfig PLACEHOLDER_PREFIX/conf/mime.types
 LogLevel warn
 LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-CustomLog PLACEHOLDER_HOME/logs/PLACEHOLDER_APP1/PLACEHOLDER_STACKNAME_access.log combined
-ErrorLog PLACEHOLDER_HOME/logs/PLACEHOLDER_APP1/PLACEHOLDER_STACKNAME_error.log
+CustomLog PLACEHOLDER_PREFIX/log/apache_PLACEHOLDER_STACKNAME_access.log combined
+ErrorLog PLACEHOLDER_PREFIX/log/apache_PLACEHOLDER_STACKNAME_error.log
+WSGISocketPrefix PLACEHOLDER_PREFIX/var/run
 
 <VirtualHost 127.0.0.1:PLACEHOLDER_PORT>
   ServerName PLACEHOLDER_DOMAIN1
@@ -63,8 +64,8 @@ ErrorLog PLACEHOLDER_HOME/logs/PLACEHOLDER_APP1/PLACEHOLDER_STACKNAME_error.log
     Require all granted
   </Directory>
 
-  WSGIDaemonProcess PLACEHOLDER_STACKNAME processes=2 threads=12 python-path=PLACEHOLDER_APPDIR1/lib/PLACEHOLDER_PYTHON
+  WSGIDaemonProcess PLACEHOLDER_STACKNAME processes=2 threads=12 python-home=PLACEHOLDER_PREFIX/env
   WSGIProcessGroup PLACEHOLDER_STACKNAME
-  WSGIScriptAlias / PLACEHOLDER_APPDIR1/myapp.wsgi
+  WSGIApplicationGroup %{GLOBAL}
+  WSGIScriptAlias / PLACEHOLDER_APPDIR1/wsgi.py
 </VirtualHost>
-
