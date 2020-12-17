@@ -4,8 +4,6 @@ A userspace Apache + mod\_wsgi installer
 
 Installation is performed as follows:
 
-    git clone 'https://github.com/rsanden/userspace-apache-modwsgi'
-    cd userspace-apache-modwsgi
     vim config
     ./install.bash
 
